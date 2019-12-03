@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>document</title>
+  <style>
+    #myCanvas{
+      border: 3px solid black
+    }
+  </style>
+  <canvas id="myCanvas" width="500" height="500">
+  </canvas>
+  <input type = 'color' id = 'Picker'/>
+  <script>
+    var canvas = document.querySelector("#myCanvas");
+    var ctx = canvas.getContext("2d");
+    var color = "red";
+    var drawing = true;
+    ctx.fillStyle = color;
+    ctx.fillStyle = "#00ff00"
+    // ctx.fillRect(50,50,150,75);
+    ctx.fillStyle = "#800080"
+    canvas.height = window.innerHeight ;
+    canvas.width = window.innerWidth ;
+
+
+    function draw(posX, posY){
+      if (drawing == true) {
+        ctx.beginPath();
+        ctx.fillStyle = color;
+        console.log("drawing circle")
+        ctx.arc(posX, posY, 10, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+    }
+
+    // function resize(){
+
+    //   canvas.height = window.innerHeight ;
+    //   canvas.width = window.innerWidth ;
+    //   var height;
+    //   var width;
+
+    //   if (window_ratio < canvas_ratio) {
+    //     height = window.innerHeight;
+    //     width = height / canvas_ratio;
+    //   } else {
+    //       width = window.innerWidth;
+    //       height = width * canvas_ratio;
+    //   }
+    //   canvas.style.width = width + 'px';
+    //   canvas.style.height = height + 'px';
+
+    // }
+    // window.addEventListener('resize', resize, false);
+    
+  myCanvas.addEventListener('mousemove', function (e){
+    //console.log(e.x);
+    //console.log(e.y);
+    draw(e.x, e.y);
+  })
+
+  window.addEventListener('keydown', function (e){
+    console.log(e);
+    //write a series of if statements to change the color
+    if (e.keyCode == 66) {
+      color = "blue";
+  }
+    if (e.keyCode == 82) {
+      color = "red";
+    }
+    if (e.keyCode == 71) {
+      color = "green";
+    }
+    if (e.keyCode == 89) {
+      color = "yellow";
+    }
+    if (e.keyCode == 32) {
+      ctx.beginPath();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    if (e.keyCode == 38) {
+      console.log("stop drawing")
+       drawing = false;
+
+    }
+    if (e.keyCode == 40) {
+       console.log("start drawing")
+       drawing = true;
+    }
+  })
+
+  document.querySelector("#Picker").addEventListener("change", function (e){
+    console.log(this.value)
+    color = this.value;
+  })
+  </script>
+
+</html>
